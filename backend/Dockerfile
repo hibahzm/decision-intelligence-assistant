@@ -14,8 +14,8 @@ ENV UV_HTTP_TIMEOUT=300
 
 COPY pyproject.toml uv.lock ./
 # Try to install with frozen lockfile; if that fails, fall back to resolving (network issues)
-RUN --mount=type=cache,id=uv-cache,target=/root/.cache/uv \
-    (uv sync --no-dev --no-install-project --frozen || uv sync --no-dev --no-install-project)
+RUN uv sync --no-dev --no-install-project --frozen || \
+    uv sync --no-dev --no-install-project
 
 COPY app ./app
 COPY ml ./ml
@@ -25,4 +25,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
