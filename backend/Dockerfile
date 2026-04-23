@@ -18,7 +18,6 @@ RUN uv sync --no-dev --no-install-project --frozen || \
     uv sync --no-dev --no-install-project
 
 COPY app ./app
-COPY ml ./ml
 RUN mkdir -p /app/logs
 
 ENV PATH="/app/.venv/bin:$PATH"
