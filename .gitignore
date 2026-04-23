@@ -13,6 +13,7 @@ backend/.env
 frontend/.env
 
 # Large local data (not needed in repo)
+*.pkl
 backend/qdrant_db/
 *.sqlite
 *.joblib
@@ -23,7 +24,7 @@ logs/
 
 # IDE
 .vscode/
-.idea/
+.idea/z
 
 # Frontend
 frontend/node_modules/
