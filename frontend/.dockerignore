@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# Build output (will be rebuilt inside container)
+dist/
+build/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Git and IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# OS metadata
+.DS_Store
+Thumbs.db

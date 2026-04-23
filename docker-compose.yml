@@ -1,0 +1,49 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dia_backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env          # QDRANT_MODE, QDRANT_CLOUD_URL, QDRANT_API_KEY
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - logs_volume:/app/logs
+      - ./backend/ml:/app/ml:ro
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:8000}
+    container_name: dia_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - app_network
+
+volumes:
+  logs_volume:
+    name: dia_logs
+
+networks:
+  app_network:
+    name: dia_network
+    driver: bridge

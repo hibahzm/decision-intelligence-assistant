@@ -1,0 +1,28 @@
+# Python / virtual env
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Logs and local data
+logs/
+*.log
+qdrant_db/          # local DB not needed in image (use volume or cloud)
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Git and IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Notebooks (if any)
+*.ipynb
+
+# Testing
+.pytest_cache/
+htmlcov/
