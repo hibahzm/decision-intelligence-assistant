@@ -15,7 +15,6 @@ frontend/.env
 # Large local data (not needed in repo)
 backend/qdrant_db/
 *.sqlite
-*.pkl
 *.joblib
 
 # Logs
