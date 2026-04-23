@@ -14,7 +14,7 @@ ENV UV_HTTP_TIMEOUT=300
 
 COPY pyproject.toml uv.lock ./
 # Try to install with frozen lockfile; if that fails, fall back to resolving (network issues)
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN --mount=type=cache,id=uv-cache,target=/root/.cache/uv \
     (uv sync --no-dev --no-install-project --frozen || uv sync --no-dev --no-install-project)
 
 COPY app ./app
